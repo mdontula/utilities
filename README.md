@@ -201,38 +201,69 @@ The application includes:
 
 ## 🚀 Deployment
 
-### Backend Deployment
-1. Build the TypeScript code: `npm run build`
-2. Set production environment variables
-3. Deploy to your preferred platform (Heroku, Vercel, AWS, etc.)
+### Quick Deployment (Recommended)
 
-### Frontend Deployment (GitHub Pages)
+Run the automated deployment script:
+```bash
+./deploy.sh
+```
 
-#### Option 1: Manual Deployment
-1. Update the `homepage` field in `frontend/package.json` with your GitHub Pages URL:
-   ```json
-   "homepage": "https://yourusername.github.io/your-repo-name"
+This script will:
+- Configure your GitHub Pages URL
+- Set up MongoDB Atlas connection
+- Deploy backend to Heroku/Vercel
+- Deploy frontend to GitHub Pages
+- Generate secure JWT secrets
+
+### Manual Deployment
+
+#### Backend Deployment
+
+**Option 1: Heroku**
+1. Install Heroku CLI: `npm install -g heroku`
+2. Login: `heroku login`
+3. Create app: `cd backend && heroku create your-app-name`
+4. Set environment variables:
+   ```bash
+   heroku config:set NODE_ENV=production
+   heroku config:set JWT_SECRET=your-secret-key
+   heroku config:set MONGODB_URI=your-mongodb-atlas-uri
+   heroku config:set CORS_ORIGIN=https://yourusername.github.io
    ```
-2. Update `frontend/env.production` with your backend URL:
-   ```
-   REACT_APP_API_URL=https://your-backend-url.herokuapp.com
-   ```
-3. Install gh-pages: `cd frontend && npm install`
-4. Deploy: `npm run deploy`
+5. Deploy: `git push heroku main`
 
-#### Option 2: Automatic Deployment (GitHub Actions)
-1. Push your code to the `main` branch
-2. Go to your repository Settings → Secrets and variables → Actions
-3. Add a new secret: `REACT_APP_API_URL` with your backend URL
-4. The GitHub Action will automatically build and deploy on every push to main
+**Option 2: Vercel**
+1. Install Vercel CLI: `npm install -g vercel`
+2. Deploy: `cd backend && vercel --prod`
+3. Set environment variables in Vercel dashboard
 
-#### GitHub Pages Setup
-1. Go to your repository Settings → Pages
-2. Set Source to "Deploy from a branch"
-3. Select the `gh-pages` branch
-4. Save the settings
+#### Frontend Deployment (GitHub Pages)
 
-Your app will be available at: `https://yourusername.github.io/your-repo-name`
+**Option 1: Manual Deployment**
+1. Update `frontend/package.json` homepage field
+2. Update `frontend/env.production` with your backend URL
+3. Deploy: `cd frontend && npm run deploy`
+
+**Option 2: Automatic Deployment (GitHub Actions)**
+1. Push to `main` branch
+2. Set up GitHub Secrets: `REACT_APP_API_URL`
+3. Enable GitHub Pages in repository settings
+
+### Database Setup
+
+See [MONGODB_SETUP.md](MONGODB_SETUP.md) for detailed MongoDB Atlas setup instructions.
+
+### Testing Deployment
+
+Run the test script to verify your configuration:
+```bash
+./test-deployment.sh
+```
+
+### Detailed Guides
+
+- [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
+- [MONGODB_SETUP.md](MONGODB_SETUP.md) - MongoDB Atlas setup guide
 
 ## 🤝 Contributing
 

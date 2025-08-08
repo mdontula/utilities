@@ -8,6 +8,8 @@ export interface User {
   email: string;
   role: 'user' | 'admin';
   avatar?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AuthState {

@@ -95,7 +95,7 @@ const Profile: React.FC = () => {
                 Member Since
               </label>
               <p className="mt-1 text-gray-900">
-                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'Not available'}
               </p>
             </div>
 
