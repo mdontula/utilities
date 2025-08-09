@@ -13,7 +13,7 @@ router.post('/register', [
   body('name').trim().isLength({ min: 2 }).withMessage('Name must be at least 2 characters'),
   body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-], async (req, res) => {
+], async (req: any, res: any) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -49,7 +49,7 @@ router.post('/register', [
           name: user.name,
           email: user.email,
           role: user.role,
-          token: generateToken(user._id)
+          token: generateToken(String(user._id))
         }
       });
     }
@@ -67,7 +67,7 @@ router.post('/register', [
 router.post('/login', [
   body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
   body('password').notEmpty().withMessage('Password is required')
-], async (req, res) => {
+], async (req: any, res: any) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -104,7 +104,7 @@ router.post('/login', [
         name: user.name,
         email: user.email,
         role: user.role,
-        token: generateToken(user._id)
+        token: generateToken(String(user._id))
       }
     });
   } catch (error) {
@@ -139,7 +139,7 @@ router.get('/me', protect, async (req: any, res) => {
 router.put('/profile', protect, [
   body('name').optional().trim().isLength({ min: 2 }).withMessage('Name must be at least 2 characters'),
   body('email').optional().isEmail().normalizeEmail().withMessage('Please provide a valid email')
-], async (req: any, res) => {
+], async (req: any, res: any) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -173,7 +173,7 @@ router.put('/profile', protect, [
         name: updatedUser.name,
         email: updatedUser.email,
         role: updatedUser.role,
-        token: generateToken(updatedUser._id)
+        token: generateToken(String(updatedUser._id))
       }
     });
   } catch (error) {
